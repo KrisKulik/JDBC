@@ -1,25 +1,40 @@
-public class Employee {
-    private int id;
-    private String firstName;
-    private String lastName;
-    private String gender;
-    private int age;
-    private int idCity;
+import javax.persistence.*;
 
-    public Employee(int id, String firstName, String lastName, String gender, int age, int idCity) {
+@Entity
+@Table (name = "employee")
+public class Employee {
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+    @Column (name = "first_name", length = 50, nullable = false)
+    private String firstName;
+    @Column (name = "last_name", length = 50, nullable = false)
+    private String lastName;
+    @Column (name = "gender", length = 10, nullable = false)
+    private String gender;
+    @Column (name = "age", nullable = false)
+    private int age;
+    @Column (name = "city_id")
+    private Integer city;
+
+    public Employee(Integer id, String firstName, String lastName, String gender, int age, Integer city) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.gender = gender;
         this.age = age;
-        this.idCity = idCity;
+        this.city = city;
     }
 
-    public int getId() {
+    public Employee() {
+    }
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -55,12 +70,12 @@ public class Employee {
         this.age = age;
     }
 
-    public int getIdCity() {
-        return idCity;
+    public Integer getCity() {
+        return city;
     }
 
-    public void setIdCity(int idCity) {
-        this.idCity = idCity;
+    public void setCity(Integer city) {
+        this.city = city;
     }
 
     @Override
@@ -70,6 +85,6 @@ public class Employee {
                 "Last Name: " + lastName + ", " +
                 "Gender: " + gender + ", " +
                 "Age: " + age + ", " +
-                "City id: " + idCity;
+                "City: " + city;
     }
 }
