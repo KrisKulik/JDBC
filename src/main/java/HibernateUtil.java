@@ -3,10 +3,9 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 
 
-
-public class HibernateUtil {
+public abstract class HibernateUtil {
    private static SessionFactory sessionFactory;
-   private HibernateUtil(){};
+   private HibernateUtil(){}
 
     public static SessionFactory getSessionFactory() {
         if (sessionFactory == null) {
@@ -23,4 +22,5 @@ public class HibernateUtil {
         }
         return sessionFactory;
     }
+
 }
