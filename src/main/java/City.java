@@ -1,5 +1,13 @@
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 public class City {
-    private int idCity;
+    @Id
+    @Column(name = "city_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer idCity;
+    @Column(name = "city_name", length = 168, nullable = false)
     private String cityName;
 
     public City(int idCity, String cityName) {
@@ -7,11 +15,11 @@ public class City {
         this.cityName = cityName;
     }
 
-    public int getIdCity() {
+    public Integer getIdCity() {
         return idCity;
     }
 
-    public void setIdCity(int idCity) {
+    public void setIdCity(Integer idCity) {
         this.idCity = idCity;
     }
 
