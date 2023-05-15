@@ -1,4 +1,5 @@
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table (name = "employee")
@@ -6,19 +7,18 @@ public class Employee {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private int id;
     @Column (name = "first_name", length = 50, nullable = false)
     private String firstName;
     @Column (name = "last_name", length = 50, nullable = false)
     private String lastName;
-    @Column (name = "gender", length = 10, nullable = false)
     private String gender;
-    @Column (name = "age", nullable = false)
     private int age;
-    @Column (name = "city_id")
-    private Integer city;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "city_id")
+    private City city;
 
-    public Employee(Integer id, String firstName, String lastName, String gender, int age, Integer city) {
+    public Employee(int id, String firstName, String lastName, String gender, int age, City city) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -30,7 +30,7 @@ public class Employee {
     public Employee() {
     }
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
@@ -70,21 +70,24 @@ public class Employee {
         this.age = age;
     }
 
-    public Integer getCity() {
+    public City getCity() {
         return city;
     }
 
-    public void setCity(Integer city) {
+    public void setCity(City city) {
         this.city = city;
     }
 
     @Override
-    public String toString() {
-        return  "id: " + id + ", " +
-                "First Name: " + firstName + ", " +
-                "Last Name: " + lastName + ", " +
-                "Gender: " + gender + ", " +
-                "Age: " + age + ", " +
-                "City: " + city;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Employee)) return false;
+        Employee employee = (Employee) o;
+        return id == employee.id && age == employee.age && Objects.equals(firstName, employee.firstName) && Objects.equals(lastName, employee.lastName) && Objects.equals(gender, employee.gender) && Objects.equals(city, employee.city);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, firstName, lastName, gender, age, city);
     }
 }
